@@ -8,27 +8,18 @@ declare namespace NodeJS {
 }
 
 declare global {
-  type ControllerMethod = (
-    req: Request,
+  type ControllerMethod<P = ParamsDictionary> = (
+    req: Request<P>,
     res: Response,
     next: NextFunction,
   ) => Promise<void>;
 
-  interface TypedRequest<B = unknown, P = unknown> extends Request {
-    body: B;
-    params: P;
-  }
-
-  interface APIResponse<T> {
+  interface ServiceResponse<T> {
     message: string;
     data: T | null;
   }
 
-  interface TypedResponseBody<T, K> extends APIResponse<T> {
-    error: APIResponse<K> | null;
-  }
-
-  interface TypedResponse<T = unknown, K = unknown> extends Response {
-    json: (body: TypedResponseBody<T, K>) => this;
+  interface APIResponse<T> extends ServiceResponse<T> {
+    error: ServiceResponse<unknown> | null;
   }
 }

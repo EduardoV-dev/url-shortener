@@ -6,10 +6,14 @@ import { ENVS } from "./config/env";
 const app = express();
 
 app.use(express.json());
-app.use("/api/v1", serverRouter);
+app.use(serverRouter);
 
-app.get("/", (_, res: Response) => {
-  res.status(200).json({ message: "Hello World" });
+app.use((_, res: Response<APIResponse<unknown>>) => {
+  res.status(200).json({
+    message: "",
+    data: null,
+    error: { message: "Route does not exist", data: null },
+  });
 });
 
 app.listen(ENVS.PORT, () => console.log(`Server running on port ${ENVS.PORT}`));

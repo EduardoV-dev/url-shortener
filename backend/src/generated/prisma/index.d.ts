@@ -2028,14 +2028,14 @@ export namespace Prisma {
 
   export type UrlWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    shortCode?: string
     AND?: UrlWhereInput | UrlWhereInput[]
     OR?: UrlWhereInput[]
     NOT?: UrlWhereInput | UrlWhereInput[]
     createdAt?: DateTimeFilter<"Url"> | Date | string
     originalUrl?: StringFilter<"Url"> | string
-    shortCode?: StringFilter<"Url"> | string
     clickCount?: IntFilter<"Url"> | number
-  }, "id">
+  }, "id" | "shortCode">
 
   export type UrlOrderByWithAggregationInput = {
     createdAt?: SortOrder

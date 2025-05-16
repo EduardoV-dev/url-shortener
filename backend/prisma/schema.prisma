@@ -18,6 +18,6 @@ model Url {
   createdAt   DateTime @default(now())
   id          Int      @id @default(autoincrement())
   originalUrl String
-  shortCode   String
+  shortCode   String   @unique
   clickCount  Int      @default(0)
 }

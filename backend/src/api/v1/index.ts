@@ -2,8 +2,10 @@ import { Router } from "express";
 
 import urlShortenerRoutes from "./url-shortener/routes";
 
-const serverRouter = Router();
+const v1ApiRouter = Router();
+v1ApiRouter.use("/shorten-url", urlShortenerRoutes);
 
-serverRouter.use("/shorten-url", urlShortenerRoutes);
+const serverRouter = Router();
+serverRouter.use("/api/v1", v1ApiRouter);
 
 export default serverRouter;

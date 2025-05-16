@@ -12,7 +12,7 @@ const controller = new UrlShortenerController(service);
 const router = Router();
 
 router
-  .get("", controller.getUrlByShortCode)
+  .get("/:shortCode", controller.getUrlByShortCode)
   .post("", validateRequest(urlSchema), controller.createUrl);
 
 export default router;

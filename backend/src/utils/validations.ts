@@ -1,4 +1,4 @@
-import { Request, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { AnyZodObject, ZodError } from "zod";
 
 type ValidationErrors = { [x in string]: string };
@@ -21,7 +21,7 @@ export const validateRequest =
   (schema: AnyZodObject) =>
   async (
     req: Request,
-    res: TypedResponse<unknown, ValidationErrors>,
+    res: Response<APIResponse<unknown>>,
     next: NextFunction,
   ) => {
     try {
@@ -32,7 +32,7 @@ export const validateRequest =
         message: "",
         data: null,
         error: {
-          message: "Validation failed",
+          message: "Validation error",
           data: groupErrors(err as ZodError),
         },
       });

@@ -8,12 +8,14 @@ interface Controller {
   getUrlByShortCode: ControllerMethod;
 }
 
+type UrlResponse = APIResponse<Url>;
+
 export class UrlShortenerController implements Controller {
   constructor(private service: Service) {}
 
-  public createUrl = async (
-    req: TypedRequest<{ url: string }>,
-    res: TypedResponse<Url>,
+  public createUrl: Controller["createUrl"] = async (
+    req: Request<{}, {}, { url: string }>,
+    res: Response<UrlResponse>,
   ) => {
     try {
       const { url } = req.body;
@@ -27,16 +29,34 @@ export class UrlShortenerController implements Controller {
     } catch (err) {
       const error = err as HttpError;
       console.log("error", error.details, error.message);
-
-      res.status(400).json({
-        message: "",
-        error: { message: error.message, data: null },
+      res.status(error.statusCode).json({
         data: null,
+        error: { message: error.message, data: null },
+        message: "",
       });
     }
   };
 
-  public getUrlByShortCode = async (req: Request, res: Response) => {
-    res.status(200).json({ message: "redirected to url" });
+  public getUrlByShortCode: Controller["getUrlByShortCode"] = async (
+    req: Request<{ shortCode: string }>,
+    res: Response<UrlResponse>,
+  ) => {
+    try {
+      const { shortCode } = req.params;
+      const response = await this.service.getUrlByCode(shortCode);
+      res.status(200).json({
+        data: response,
+        error: null,
+        message: "Url retrieved succesfully!",
+      });
+    } catch (err) {
+      const error = err as HttpError;
+      console.log("error", error.details, error.message);
+      res.status(error.statusCode).json({
+        data: null,
+        error: { message: error.message, data: error.details || null },
+        message: "",
+      });
+    }
   };
 }

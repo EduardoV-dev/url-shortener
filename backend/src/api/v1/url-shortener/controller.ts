@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Service } from "./services";
+import { Service } from "./service";
 import { Url } from "@/generated/prisma";
 import { HttpError } from "@/utils/http-error";
 

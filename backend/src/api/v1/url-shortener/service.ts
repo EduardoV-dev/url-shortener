@@ -2,23 +2,17 @@ import { nanoid } from "nanoid";
 import { Repository } from "./repository";
 import { Url } from "@/generated/prisma";
 import { HttpError } from "@/utils/http-error";
+import { CodeGenerator } from "./utils";
 
-export interface Service {
-  createShortUrl: (url: string) => Promise<Url>;
+export interface Service { createShortUrl: (url: string) => Promise<Url>;
   getUrlByCode: (code: string) => Promise<Url>;
 }
 
 export class UrlShortenerService implements Service {
-  constructor(private repository: Repository) {}
-
-  private generateIntByRange = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
+  constructor(private repository: Repository, private codeGenerator: CodeGenerator) { }
 
   public createShortUrl: Service["createShortUrl"] = (url) => {
-    const codeLength: number = this.generateIntByRange(6, 10);
-    const shortCode: string = nanoid(codeLength);
-
+    const shortCode: string = this.codeGenerator.generateByRange(6, 10);
     return this.repository.create({ shortCode, originalUrl: url });
   };
 
@@ -31,3 +25,4 @@ export class UrlShortenerService implements Service {
     });
   };
 }
+

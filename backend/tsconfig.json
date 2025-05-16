@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "target": "ES2020",
     "module": "commonjs",
     "outDir": "./dist",
@@ -7,7 +8,7 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": [
-        "*"
+        "./*"
       ]
     },
     "strict": true,
@@ -23,9 +24,6 @@
     "src/**/*.d.ts"
   ],
   "exclude": [
-    "node_modules",
-    "src/tests/**/*.ts",
-    "src/**/__tests__",
-    "src/**/**.test.ts"
+    "node_modules"
   ]
 }

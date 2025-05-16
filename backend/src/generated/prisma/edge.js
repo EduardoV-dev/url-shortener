@@ -125,7 +125,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/evarela/Development/Projects/url-shortener/backend/src/generated/prisma",
+      "value": "/home/evarela/Workspace/personal/url-shortener/backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -139,12 +139,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/evarela/Development/Projects/url-shortener/backend/prisma/schema.prisma",
+    "sourceFilePath": "/home/evarela/Workspace/personal/url-shortener/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
